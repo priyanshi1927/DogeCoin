@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dogecoin Price Converter</title>
+  <script src="https://openexchangerates.org/api/latest.json?app_id=YOUR_APP_ID"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="icon" type="image/png" href="DogecoinICON.png"/>
+
+  <style>
+    body{
+        background-color: rgb(27, 27, 27);
+    }
+
+    .price-box {
+      padding: 10px;
+      border: 1px solid #9a8989;
+      color: rgb(190, 187, 187);
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.containerc {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 40px;
+margin-left: 20px;
+margin-right: 600px;
+height:400px ;
+background-color: rgb(220, 217, 217);
+}
+
+h1 {
+      color: #b6b3b3; /* Change color here */
+    }
+
+    .content{
+     color: #cdc9c9;      
+    }
+
+nav {
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex; /* Use flexbox to create a horizontal layout */
+  justify-content: flex-end;
+  margin-left: 1200px;
+}
+
+nav li {
+  margin-right: 10px;
+}
+
+nav li:last-child {
+  margin-right: 0; /* Remove margin-right for the last list item */
+}
+
+nav a {
+  text-decoration: none;
+  color: #02b3ff;
+  padding: 5px;
+}
+
+nav a:hover {
+  background-color: #ddd;
+}
+
+/* about section */
+#content {
+  background-color: #cecbcb; /* Change the background color to your desired color */
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 25px;
+}
+
+#content h2 {
+  color: #333; /* Change the heading color if desired */
+}
+
+#content p {
+  color: #555; /* Change the paragraph text color if desired */
+}
+
+#content a {
+  color: #007bff; /* Change the link color if desired */
+}
+
+#content a:hover {
+  text-decoration: underline; /* Add underline on link hover if desired */
+}
+
+#converter {
+  background-color: #9e9d9d;
+  padding: 10px;
+  margin-left: 25px;
+  font-weight: bold;
+}
+
+#converter h3 {
+  margin-top: 0;
+}
+
+#converter div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#resultContainer {
+  background-color: #f2f2f2;
+  padding: 10px;
+
+  border: 1px solid #621a1a;
+}
+
+#resultContainer h3 {
+  margin-top: 0;
+}
+
+#result {
+  padding:5px;
+
+  border-radius: 5px;
+  border-width: 25px 10px 4px 35px;
+  background-color: #fff;
+  border: 3px solid #000000;
+}
+
+.outer-div {
+  border: 1px solid #000000;
+  padding: px;
+  color: #000000;
+}
+
+
+
+
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul>
+      <li><a href="#Dogecoin">Dogecoin ?</a></li>
+      <li><a href="#IndianRupee">Indian Rupee </a></li>
+      
+    </ul>
+  
+  
+</nav>
+<div class="container">
+  <h1>Dogecoin Price Converter</h1>
+  <div class="price-box" id="priceBox">Loading...</div>
+  <button onclick="convertCurrency()" class="btn btn-primary">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-exchange" viewBox="0 0 16 16">
+      <path d="M0 5a5.002 5.002 0 0 0 4.027 4.905 6.46 6.46 0 0 1 .544-2.073C3.695 7.536 3.132 6.864 3 5.91h-.5v-.426h.466V5.05c0-.046 0-.093.004-.135H2.5v-.427h.511C3.236 3.24 4.213 2.5 5.681 2.5c.316 0 .59.031.819.085v.733a3.46 3.46 0 0 0-.815-.082c-.919 0-1.538.466-1.734 1.252h1.917v.427h-1.98c-.003.046-.003.097-.003.147v.422h1.983v.427H3.93c.118.602.468 1.03 1.005 1.229a6.5 6.5 0 0 1 4.97-3.113A5.002 5.002 0 0 0 0 5zm16 5.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0zm-7.75 1.322c.069.835.746 1.485 1.964 1.562V14h.54v-.62c1.259-.086 1.996-.74 1.996-1.69 0-.865-.563-1.31-1.57-1.54l-.426-.1V8.374c.54.06.884.347.966.745h.948c-.07-.804-.779-1.433-1.914-1.502V7h-.54v.629c-1.076.103-1.808.732-1.808 1.622 0 .787.544 1.288 1.45 1.493l.358.085v1.78c-.554-.08-.92-.376-1.003-.787H8.25zm1.96-1.895c-.532-.12-.82-.364-.82-.732 0-.41.311-.719.824-.809v1.54h-.005zm.622 1.044c.645.145.943.38.943.796 0 .474-.37.8-1.02.86v-1.674l.077.018z"/>
+    </svg>
+  </button>
+  </div>
+</div>
+
+<div class="containerc">
+  <canvas id="chart" width="800" height="400"></canvas>
+  
+  <div id="converter">
+    <h3>Dogecoin Converter</h3>
+    <div>
+      <label for="dogecoinAmount">Enter Dogecoin Amount:</label>
+      <input type="number" id="dogecoinAmount">
+    
+      <label for="currency">Select Currency:</label>
+      <select id="currency">
+        <option value="usd">USD</option>
+        <option value="eur">EUR</option>
+        <option value="gbp">GBP</option>
+        <option value="jpy">JPY</option>
+        <option value="aud">AUD</option>
+        <option value="cad">CAD</option>
+        <option value="inr">INR</option>
+      </select>
+    
+      <button onclick="convert()">Convert</button>
+    </div>
+    
+    <div id="resultContainer">
+      <h3>Conversion Result</h3>
+      <div id="result"></div>
+      <div id="currencyInfo"></div>
+    </div>
+  </div>
+  </div>
+
+  <div id="currencyInfo"></div>
+
+
+ 
+
+  
+
+  <div id="content">
+    <section id="Dogecoin">
+      <h2>About Dogecoin</h2>
+      <P>Dogecoin is a cryptocurrency created by software engineers Billy Markus and Jackson Palmer, who decided to create a payment system as a "joke", making fun of the wild speculation in cryptocurrencies at the time. It is considered both the first "meme coin", and more specifically the first "dog coin". Despite its satirical nature, some consider it a legitimate investment prospect. Dogecoin features the face of the Shiba Inu dog from the "doge" meme as its logo and namesake. It was introduced on December 6, 2013, and quickly developed its own online community, reaching a peak market capitalization of over $85 billion on May 5, 2021. As of 2021, it is the sleeve sponsor of Watford Football Club.
+        Dogecoin.com promotes the currency as the "fun and friendly Internet currency", referencing its origins as a "joke". Software engineers Billy Markus and Jackson Palmer launched the satirical cryptocurrency as a way to make fun of Bitcoin and the many other cryptocurrencies boasting grand plans to take over the world. With the help of Reddit, the site became an instant hit.    <a target="_blank" href="https://en.wikipedia.org/wiki/Dogecoin">Wikipedia</a></P>
+    </section>
+  
+    <section id="IndianRupee">
+      <h2>About Indian Rupee</h2>
+      <P>The Indian rupee is the official currency in the Republic of India. The rupee is subdivided into 100 paise. The issuance of the currency is controlled by the Reserve Bank of India. The Reserve Bank manages currency in India and derives its role in currency management on the basis of the Reserve Bank of India Act, 1934.  <a target="_blank" href="https://en.wikipedia.org/wiki/Indian_rupee">Wikipedia</a></P> 
+    </section>
+
+  </div>
+
+
+  
+
+
+  
+  <script>
+    let prices = [];
+    let labels = [];
+    let values = [];
+    let currency = 'usd'; // Initial currency is USD
+    let chart; // Chart reference
+
+    function updateChart() {
+      fetch('https://api.coingecko.com/api/v3/coins/dogecoin/market_chart?vs_currency=' + currency + '&days=20&interval=daily')
+        .then(response => response.json())
+        .then(data => {
+          prices = data.prices;
+          labels = prices.map(price => new Date(price[0]).toLocaleDateString() + " " + new Date(price[0]).toLocaleTimeString());
+          values = prices.map(price => price[1]);
+
+          // Update the price box content
+          document.getElementById("priceBox").textContent =currency === 'usd'
+            ? 'Current Price in USD: $' + values[values.length - 1].toFixed(2)
+            : 'Current Price in INR: ₹' + values[values.length - 1].toFixed(2);
+
+          // Destroy existing chart if it exists
+          if (chart) {
+            chart.destroy();
+          }
+
+          // Create the line chart
+          const ctx = document.getElementById('chart').getContext('2d');
+          chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Price',
+                data: values,
+                borderColor: 'red',
+                fill: false
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: {
+                  display: true,
+                  title: {
+                    display: true,
+                    text: 'Date and Time'
+                  }
+                },
+                y: {
+                  display: true,
+                  title: {
+                    display: true,
+                    text: 'Price'
+                  }
+                }
+              }
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          document.getElementById("priceBox").textContent = "Error retrieving price";
+        });
+    }
+
+    function convertCurrency() {
+      if (currency === 'usd') {
+        const inrConversionRate = 75.0; 
+
+        const convertedValues = values.map(value => value * inrConversionRate);
+        const convertedPrice = convertedValues[convertedValues.length - 1].toFixed(2);
+
+        const priceBox = document.getElementById("priceBox");
+        priceBox.textContent = "Current Price in INR: ₹" + convertedPrice;
+
+        currency = 'inr'; // Set currency to INR
+        document.querySelector("button").textContent = "Convert to USD";
+      } else {
+        const currentPrice = values[values.length - 1].toFixed(2);
+
+        const priceBox = document.getElementById("priceBox");
+        priceBox.textContent = "Current Price: $" + currentPrice;
+
+        currency= 'usd'; // Set currency to USD
+        document.querySelector("button").textContent = "Convert to INR";
+      }
+
+      updateChart();
+    }
+
+
+    function convert() {
+  const dogecoinAmount = document.getElementById('dogecoinAmount').value;
+  const currency = document.getElementById('currency').value;
+
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=' + currency)
+  .then(response => response.json())
+  .then(data => {
+    const rate = data.dogecoin[currency];
+    const result = dogecoinAmount * rate;
+  
+    // Retrieve currency information dynamically
+    fetch('https://openexchangerates.org/api/currencies.json')
+      .then(response => response.json())
+      .then(currencies => {
+        const currencyInfo = currencies[currency];
+        document.getElementById('result').innerText = `${currency.toUpperCase()} value: ${result}`;
+        document.getElementById('currencyInfo').innerText = `Currency Information: ${currencyInfo}`;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+  const currencyInfo = {
+  usd: 'United States Dollar',
+  eur: 'Euro',
+  gbp: 'British Pound',
+  jpy: 'Japanese Yen',
+  aud: 'Australian Dollar',
+  cad: 'Canadian Dollar',
+  inr: 'Indian Rupee'
+};
+
+document.getElementById('currencyInfo').innerText = `Currency Information: ${currencyInfo[currency]}`;
+}
+
+
+
+
+
+
+
+    updateChart();
+  </script>
+</body>
+</html>
